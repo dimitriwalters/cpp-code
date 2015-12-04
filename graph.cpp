@@ -25,11 +25,10 @@ void Graph::addEdge(int u, int v) {
 
 vector<bool> Graph::DFSutil(int s, vector<bool> visited) {
     visited[s] = true;
-    vector<int> neighbours = adj[s];
 
-    for (int i=0; i<neighbours.size(); i++) {
-        if (!visited[neighbours[i]]) {
-            visited = DFSutil(neighbours[i], visited);
+    for (int i=0; i<adj[s].size(); i++) {
+        if (!visited[adj[s][i]]) {
+            visited = DFSutil(adj[s][i], visited);
         }
     }
 
