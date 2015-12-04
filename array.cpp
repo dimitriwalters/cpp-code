@@ -20,7 +20,7 @@ void fillArrayParity(int arr[], int start, int end) {
     }
 }
 
-void splitArray(int orig[], int l[], int lLen, int r[], int rLen) {
+void split(int orig[], int l[], int lLen, int r[], int rLen) {
     for (int i=0; i<lLen; i++) {
         l[i] = orig[i];
     }
