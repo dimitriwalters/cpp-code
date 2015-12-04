@@ -54,21 +54,26 @@ void merge(int a[], int aLen, int b[], int bLen, int source[]) {
     }
 }
 
+void mergesort(int arr[], int length) {
+    if (length < 2) {
+        return;
+    } else {
+        int midpt = length / 2;
+        int left[midpt];
+        int right[length - midpt];
+
+        split(arr, left, midpt, right, length - midpt);
+        mergesort(left, midpt);
+        mergesort(right, length - midpt);
+        merge(left, midpt, right, length - midpt, arr);
+    }
+}
+
 int main() {
-    int a[] = {2, 3, 1, 4, 5};
-    int b[2];
-    int c[3];
-    int d[5];
+    int a[] = {3, 2, 4, 5, 1};
 
-    split(a, b, 2, c, 3);
-    printf("b:\n");
-    printArray(b, 2);
-    printf("c:\n");
-    printArray(c, 3);
-
-    merge(b, 2, c, 3, d);
-    printf("d:\n");
-    printArray(d, 5);
+    mergesort(a, 5);
+    printArray(a, 5);
 
     return 0;
 }
