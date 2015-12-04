@@ -20,6 +20,18 @@ void fillArrayParity(int arr[], int start, int end) {
     }
 }
 
+void splitArray(int original[], int left[], int right[], int length) {
+    int midpt = length / 2;
+
+    for (int i=0; i<midpt; i++) {
+        left[i] = original[i];
+    }
+
+    for (int i=midpt; i<length; i++) {
+        right[i - midpt] = original[i];
+    }
+}
+
 int main() {
     int arr[10];
     fillArray(arr, 1, 10);
