@@ -30,10 +30,45 @@ void split(int orig[], int l[], int lLen, int r[], int rLen) {
     }
 }
 
+void merge(int a[], int aLen, int b[], int bLen, int source[]) {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+
+    while (i < aLen || j < bLen) {
+        if (i == aLen) {
+            source[k] = b[j];
+            j++;
+        } else if (j == bLen) {
+            source[k] = a[i];
+            i++;
+        } else if (a[i] < b[j]) {
+            source[k] = a[i];
+            i++;
+        } else {
+            source [k] = b[j];
+            j++;
+        }
+
+        k++;
+    }
+}
+
 int main() {
-    int arr[10];
-    fillArray(arr, 1, 10);
-    printArray(arr, 10);
+    int a[] = {2, 3, 1, 4, 5};
+    int b[2];
+    int c[3];
+    int d[5];
+
+    split(a, b, 2, c, 3);
+    printf("b:\n");
+    printArray(b, 2);
+    printf("c:\n");
+    printArray(c, 3);
+
+    merge(b, 2, c, 3, d);
+    printf("d:\n");
+    printArray(d, 5);
 
     return 0;
 }
