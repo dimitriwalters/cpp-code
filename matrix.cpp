@@ -11,6 +11,15 @@ void printMatrix(int *matrix, int rows, int columns) {
     }
 }
 
+void printCharMatrix(char *matrix, int rows, int columns) {
+    for (int i=0; i<rows; i++) {
+        for (int j=0; j<columns; j++) {
+            cout << matrix[i*columns + j] << " ";
+        }
+        cout << endl;
+    }
+}
+
 void rotate90(int *matrix, int rows, int columns, int *dest) {
     for (int i=0; i<rows; i++) {
         for (int j=0; j<columns; j++) {
@@ -18,6 +27,8 @@ void rotate90(int *matrix, int rows, int columns, int *dest) {
         }
     }
 }
+
+// bool isWordInMatrix(char *matrix, int rows, int columns, string word)
 
 int main() {
     int matrix[3][3] = {
@@ -30,4 +41,11 @@ int main() {
     printMatrix((int *)matrix, 3, 3);
     rotate90((int *)matrix, 3, 3, (int *)newMatrix);
     printMatrix((int *)newMatrix, 3, 3);
+
+    char a[3][3] = {
+        {'a','b','c'},
+        {'d','e','f'},
+        {'g','h','i'}
+    };
+    printCharMatrix((char *)a, 3, 3);
 }
