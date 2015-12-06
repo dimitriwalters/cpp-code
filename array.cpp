@@ -69,8 +69,18 @@ void mergesort(int arr[], int length) {
     }
 }
 
+void copyArray(int src[], int dest[], int length) {
+    for (int i=0; i<length; i++) {
+        dest[i] = src[i];
+    }
+}
+
 int main() {
     int a[] = {3, 2, 4, 5, 1};
+    int b[5];
+
+    copyArray(a, b, 5);
+    printArray(b, 5);
 
     mergesort(a, 5);
     printArray(a, 5);
