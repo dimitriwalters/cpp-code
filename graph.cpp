@@ -4,6 +4,13 @@
 
 using namespace std;
 
+void printArrayBool(bool arr[], int length) {
+    for (int i=0; i<length; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
 class Graph {
     int V;
     vector<int> *adj;
@@ -12,7 +19,7 @@ public:
     Graph(int v);
     void addEdge(int u, int v);
     void DFS(int s);
-    vector<bool> BFS(int s);
+    void BFS(int s);
 };
 
 Graph::Graph(int v) {
@@ -42,14 +49,11 @@ void Graph::DFS(int s) {
 
     DFSutil(s, visited);
 
-    for (int i=0; i<V; i++) {
-        cout << visited[i] << " ";
-    }
-    cout << endl;
+    printArrayBool(visited, V);
 }
 
-vector<bool> Graph::BFS(int s) {
-    vector<bool> visited(V);
+void Graph::BFS(int s) {
+    bool visited[V];
     for (int i=0; i<V; i++) {
         visited[i] = false;
     }
@@ -71,14 +75,7 @@ vector<bool> Graph::BFS(int s) {
         }
     }
 
-    return visited;
-}
-
-void printVectorBool(vector<bool> v) {
-    for (int i=0; i<v.size(); i++) {
-        cout << v[i] << " ";
-    }
-    cout << endl;
+    printArrayBool(visited, V);
 }
 
 int main() {
@@ -91,9 +88,7 @@ int main() {
     g.addEdge(3, 3);
 
     g.DFS(3);
-
-    vector<bool> results2 = g.BFS(3);
-    printVectorBool(results2);
+    g.BFS(3);
 
     return 0;
 }
