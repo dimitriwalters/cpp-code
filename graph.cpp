@@ -7,11 +7,11 @@ using namespace std;
 class Graph {
     int V;
     vector<int> *adj;
-    vector<bool> DFSutil(int s, vector<bool> visited);
+    void DFSutil(int s, bool visited[]);
 public:
     Graph(int v);
     void addEdge(int u, int v);
-    vector<bool> DFS(int s);
+    void DFS(int s);
     vector<bool> BFS(int s);
 };
 
@@ -24,26 +24,28 @@ void Graph::addEdge(int u, int v) {
     adj[u].push_back(v);
 }
 
-vector<bool> Graph::DFSutil(int s, vector<bool> visited) {
+void Graph::DFSutil(int s, bool visited[]) {
     visited[s] = true;
 
     for (int i=0; i<adj[s].size(); i++) {
         if (!visited[adj[s][i]]) {
-            visited = DFSutil(adj[s][i], visited);
+            DFSutil(adj[s][i], visited);
         }
     }
-
-    return visited;
 }
 
-vector<bool> Graph::DFS(int s) {
-    vector<bool> visited(V);
-
-    for (int i=0; i<visited.size(); i++) {
+void Graph::DFS(int s) {
+    bool visited[V];
+    for (int i=0; i<V; i++) {
         visited[i] = false;
     }
 
-    return DFSutil(s, visited);
+    DFSutil(s, visited);
+
+    for (int i=0; i<V; i++) {
+        cout << visited[i] << " ";
+    }
+    cout << endl;
 }
 
 vector<bool> Graph::BFS(int s) {
@@ -88,8 +90,7 @@ int main() {
     g.addEdge(2, 3);
     g.addEdge(3, 3);
 
-    vector<bool> results = g.DFS(3);
-    printVectorBool(results);
+    g.DFS(3);
 
     vector<bool> results2 = g.BFS(3);
     printVectorBool(results2);
