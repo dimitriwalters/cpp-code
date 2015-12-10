@@ -12,18 +12,15 @@ class List {
     node *head;
     node *tail;
 public:
-    List(int v);
+    List();
     ~List();
     void push_front(int v);
     void push_back(int v);
     void print();
 };
 
-List::List(int v) {
-    head = new node;
-    head->item = v;
-    head->next = nullptr;
-    head->prev = nullptr;
+List::List() {
+    head = nullptr;
     tail = head;
 }
 
@@ -44,6 +41,9 @@ void List::push_front(int v) {
     newnode->prev = nullptr;
 
     head = newnode;
+    if (tail == nullptr) {
+        tail = head;
+    }
 }
 
 void List::push_back(int v) {
@@ -52,8 +52,14 @@ void List::push_back(int v) {
     newnode->next = nullptr;
     newnode->prev = tail;
 
-    tail->next = newnode;
+    if (tail != nullptr) {
+        tail->next = newnode;
+    }
     tail = newnode;
+
+    if (head == nullptr) {
+        head = tail;
+    }
 }
 
 void List::print() {
@@ -68,7 +74,8 @@ void List::print() {
 }
 
 int main() {
-    List list(5);
+    List list;
+    list.push_front(5);
     list.push_front(8);
     list.push_back(11);
     list.print();
