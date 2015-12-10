@@ -11,6 +11,7 @@ class List {
     node *head;
 public:
     List(int v);
+    ~List();
     void push_front(int v);
     void print();
 };
@@ -19,6 +20,16 @@ List::List(int v) {
     head = new node;
     head->item = v;
     head->next = nullptr;
+}
+
+List::~List() {
+    node *current, *next;
+    current = head;
+    while (current != nullptr) {
+        next = current->next;
+        delete current;
+        current = next;
+    }
 }
 
 void List::push_front(int v) {
@@ -30,11 +41,12 @@ void List::push_front(int v) {
 }
 
 void List::print() {
-    node *current;
+    node *current, *next;
     current = head;
     while (current != nullptr) {
+        next = current->next;
         cout << current->item << " --> ";
-        current = current->next;
+        current = next;
     }
     cout << "NULL" << endl;
 }
