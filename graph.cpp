@@ -32,6 +32,7 @@ class Graph {
     int findMinVertex(int dist[], bool known[]);
 public:
     Graph(int v);
+    ~Graph();
     void addEdge(int u, int v);
     void addWeightedEdge(int u, int v, int weight);
     void DFS(int s);
@@ -51,6 +52,11 @@ Graph::Graph(int v) {
             weights[i].push_back(INFINITY);
         }
     }
+}
+
+Graph::~Graph() {
+    delete[] adj;
+    delete[] weights;
 }
 
 void Graph::addEdge(int u, int v) {
