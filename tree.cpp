@@ -101,7 +101,7 @@ void Tree::insert(node *tree, int v) {
             insert(tree->left, v);
         }
     }
-    else {
+    else if (v > tree->key) {
         if (tree->right == nullptr) {
             node *newnode = new node;
             newnode->key = v;
@@ -215,6 +215,7 @@ int main() {
     Tree my_tree;
     my_tree.insert(12);
     my_tree.insert(5);
+    my_tree.insert(19);
     my_tree.insert(19);
     my_tree.print_in_order();
 
