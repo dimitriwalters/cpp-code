@@ -13,12 +13,16 @@ class Tree {
     void destroy(node *tree);
     void insert(node *tree, int v);
     node *search(node *tree, int v);
+    node *max(node *tree);
+    void deleteKey(node *tree, node *parent, int v);
     void print_in_order(node *tree);
 public:
     Tree();
     ~Tree();
     void insert(int v);
     node *search(int v);
+    node *max();
+    void deleteKey(int v);
     void print_in_order();
 };
 
@@ -48,6 +52,20 @@ node *Tree::search(int v) {
         return search(root, v);
     } else {
         return root;
+    }
+}
+
+node *Tree::max() {
+    if (root != nullptr) {
+        return max(root);
+    } else {
+        return root;
+    }
+}
+
+void Tree::deleteKey(int v) {
+    if (root != nullptr) {
+        deleteKey(root, nullptr, v);
     }
 }
 
@@ -115,6 +133,74 @@ node *Tree::search(node *tree, int v) {
     }
 }
 
+node *Tree::max(node *tree) {
+    if (tree->right != nullptr) {
+        return max(tree->right);
+    } else {
+        return tree;
+    }
+}
+
+void Tree::deleteKey(node *tree, node *parent, int v) {
+    if (v == tree->key) {
+        node *left = tree->left;
+        node *right = tree->right;
+        if (left == nullptr && right == nullptr) {
+            if (parent == nullptr) {
+                delete tree;
+                root = nullptr;
+            } else {
+                if (parent->left->key == v) {
+                    delete parent->left;
+                    parent->left = nullptr;
+                } else {
+                    delete parent->right;
+                    parent->right = nullptr;
+                }
+            }
+        } else if (left == nullptr) {
+            if (parent == nullptr) {
+                delete tree;
+                root = right;
+            } else {
+                if (parent->left->key == v) {
+                    delete parent->left;
+                    parent->left = right;
+                } else {
+                    delete parent->right;
+                    parent->right = right;
+                }
+            }
+        } else if (right == nullptr) {
+            if (parent == nullptr) {
+                delete tree;
+                root = left;
+            } else {
+                if (parent->left->key == v) {
+                    delete parent->left;
+                    parent->left = left;
+                } else {
+                    delete parent->right;
+                    parent->right = left;
+                }
+            }
+        } else {
+            node *predecessor = max(tree->left);
+            int predecessorKey = predecessor->key;
+            deleteKey(predecessorKey);
+            tree->key = predecessorKey;
+        }
+    } else if (v < tree->key) {
+        if (tree->left != nullptr) {
+            deleteKey(tree->left, tree, v);
+        }
+    } else {
+        if (tree->right != nullptr) {
+            deleteKey(tree->right, tree, v);
+        }
+    }
+}
+
 void Tree::print_in_order(node *tree) {
     if (tree->left != nullptr) {
         print_in_order(tree->left);
@@ -132,6 +218,8 @@ int main() {
     my_tree.insert(19);
     my_tree.print_in_order();
 
-    node *my_node = my_tree.search(5);
-    cout << my_node->key << endl;
+    my_tree.deleteKey(12);
+    my_tree.print_in_order();
+    my_tree.deleteKey(5);
+    my_tree.print_in_order();
 }
