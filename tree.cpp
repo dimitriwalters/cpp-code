@@ -41,11 +41,7 @@ void Tree::insert(int v) {
 }
 
 node *Tree::search(int v) {
-    if (root != nullptr) {
-        return search(root, v);
-    } else {
-        return root;
-    }
+    return search(root, v);
 }
 
 node *Tree::max() {
@@ -96,20 +92,12 @@ node *Tree::insert(node *tree, int v) {
 }
 
 node *Tree::search(node *tree, int v) {
-    if (v == tree->key) {
+    if (tree == nullptr || tree->key == v) {
         return tree;
     } else if (v < tree->key) {
-        if (tree->left == nullptr) {
-            return nullptr;
-        } else {
-            return search(tree->left, v);
-        }
+        return search(tree->left, v);
     } else {
-        if (tree->right == nullptr) {
-            return nullptr;
-        } else {
-            return search(tree->right, v);
-        }
+        return search(tree->right, v);
     }
 }
 
