@@ -11,7 +11,7 @@ struct node {
 class Tree {
     node *root;
     void destroy(node *tree);
-    void insert(node *tree, int v);
+    node *insert(node *tree, int v);
     node *search(node *tree, int v);
     node *max(node *tree);
     void deleteKey(node *tree, node *parent, int v);
@@ -37,14 +37,7 @@ Tree::~Tree() {
 }
 
 void Tree::insert(int v) {
-    if (root != nullptr) {
-        insert(root, v);
-    } else {
-        root = new node;
-        root->key = v;
-        root->left = nullptr;
-        root->right = nullptr;
-    }
+    root = insert(root, v);
 }
 
 node *Tree::search(int v) {
@@ -88,31 +81,18 @@ void Tree::destroy(node *tree) {
     delete tree;
 }
 
-void Tree::insert(node *tree, int v) {
-    if (v < tree->key) {
-        if (tree->left == nullptr) {
-            node *newnode = new node;
-            newnode->key = v;
-            newnode->left = nullptr;
-            newnode->right = nullptr;
-
-            tree->left = newnode;
-        } else {
-            insert(tree->left, v);
-        }
+node *Tree::insert(node *tree, int v) {
+    if (tree == nullptr) {
+        tree = new node;
+        tree->key = v;
+        tree->left = nullptr;
+        tree->right = nullptr;
+    } else if (v < tree->key) {
+        tree->left = insert(tree->left, v);
+    } else if (v > tree->key) {
+        tree->right = insert(tree->right, v);
     }
-    else if (v > tree->key) {
-        if (tree->right == nullptr) {
-            node *newnode = new node;
-            newnode->key = v;
-            newnode->left = nullptr;
-            newnode->right = nullptr;
-
-            tree->right = newnode;
-        } else {
-            insert(tree->right, v);
-        }
-    }
+    return tree;
 }
 
 node *Tree::search(node *tree, int v) {
