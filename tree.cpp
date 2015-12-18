@@ -14,6 +14,7 @@ class Tree {
     node *insert(node *tree, int v);
     node *search(node *tree, int v);
     node *max(node *tree);
+    node *min(node *tree);
     node *deleteKey(node *tree, int v);
     void print_in_order(node *tree);
 public:
@@ -22,6 +23,7 @@ public:
     void insert(int v);
     node *search(int v);
     node *max();
+    node *min();
     void deleteKey(int v);
     void print_in_order();
 };
@@ -47,6 +49,14 @@ node *Tree::search(int v) {
 node *Tree::max() {
     if (root != nullptr) {
         return max(root);
+    } else {
+        return root;
+    }
+}
+
+node *Tree::min() {
+    if (root != nullptr) {
+        return min(root);
     } else {
         return root;
     }
@@ -102,6 +112,14 @@ node *Tree::search(node *tree, int v) {
 node *Tree::max(node *tree) {
     if (tree->right != nullptr) {
         return max(tree->right);
+    } else {
+        return tree;
+    }
+}
+
+node *Tree::min(node *tree) {
+    if (tree->left != nullptr) {
+        return min(tree->left);
     } else {
         return tree;
     }
