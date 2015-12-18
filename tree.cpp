@@ -14,7 +14,7 @@ class Tree {
     node *insert(node *tree, int v);
     node *search(node *tree, int v);
     node *max(node *tree);
-    void deleteKey(node *tree, node *parent, int v);
+    node *deleteKey(node *tree, int v);
     void print_in_order(node *tree);
 public:
     Tree();
@@ -53,9 +53,7 @@ node *Tree::max() {
 }
 
 void Tree::deleteKey(int v) {
-    if (root != nullptr) {
-        deleteKey(root, nullptr, v);
-    }
+    root = deleteKey(root, v);
 }
 
 void Tree::print_in_order() {
@@ -109,63 +107,34 @@ node *Tree::max(node *tree) {
     }
 }
 
-void Tree::deleteKey(node *tree, node *parent, int v) {
-    if (v == tree->key) {
-        node *left = tree->left;
-        node *right = tree->right;
-        if (left == nullptr && right == nullptr) {
-            if (parent == nullptr) {
-                delete tree;
-                root = nullptr;
-            } else {
-                if (parent->left->key == v) {
-                    delete parent->left;
-                    parent->left = nullptr;
-                } else {
-                    delete parent->right;
-                    parent->right = nullptr;
-                }
-            }
-        } else if (left == nullptr) {
-            if (parent == nullptr) {
-                delete tree;
-                root = right;
-            } else {
-                if (parent->left->key == v) {
-                    delete parent->left;
-                    parent->left = right;
-                } else {
-                    delete parent->right;
-                    parent->right = right;
-                }
-            }
-        } else if (right == nullptr) {
-            if (parent == nullptr) {
-                delete tree;
-                root = left;
-            } else {
-                if (parent->left->key == v) {
-                    delete parent->left;
-                    parent->left = left;
-                } else {
-                    delete parent->right;
-                    parent->right = left;
-                }
-            }
-        } else {
-            node *predecessor = max(tree->left);
-            int predecessorKey = predecessor->key;
-            deleteKey(predecessorKey);
-            tree->key = predecessorKey;
-        }
-    } else if (v < tree->key) {
-        if (tree->left != nullptr) {
-            deleteKey(tree->left, tree, v);
-        }
+node *Tree::deleteKey(node *tree, int v) {
+    if (tree == nullptr) {
+        return tree;
     } else {
-        if (tree->right != nullptr) {
-            deleteKey(tree->right, tree, v);
+        if (v < tree->key) {
+            tree->left = deleteKey(tree->left, v);
+        } else if (v > tree->key) {
+            tree->right = deleteKey(tree->right, v);
+        } else {
+            node *left = tree->left;
+            node *right = tree->right;
+            if (left == nullptr && right == nullptr) {
+                delete tree;
+                return nullptr;
+            } else if (tree->left == nullptr) {
+                delete tree;
+                return right;
+            } else if (tree->right == nullptr) {
+                delete tree;
+                return left;
+            } else {
+                node *maxnode = max(tree->left);
+                int maxkey = maxnode->key;
+                deleteKey(maxkey);
+                tree->key = maxkey;
+            }
         }
+        return tree;
     }
 }
 
