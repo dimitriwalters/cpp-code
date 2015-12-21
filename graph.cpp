@@ -27,7 +27,7 @@ class Graph {
     int V;
     vector<int> *adj;
     vector<int> *weights;
-    void DFSutil(int s, bool visited[]);
+    void DFSrec(int s, bool visited[]);
     void topSortUtil(int s, bool visited[], stack<int> &finish);
     int findMinVertex(int dist[], bool known[]);
 public:
@@ -68,12 +68,12 @@ void Graph::addWeightedEdge(int u, int v, int weight) {
     weights[u][v] = weight;
 }
 
-void Graph::DFSutil(int s, bool visited[]) {
+void Graph::DFSrec(int s, bool visited[]) {
     visited[s] = true;
 
     for (int i=0; i<adj[s].size(); i++) {
         if (!visited[adj[s][i]]) {
-            DFSutil(adj[s][i], visited);
+            DFSrec(adj[s][i], visited);
         }
     }
 }
@@ -84,7 +84,7 @@ void Graph::DFS(int s) {
         visited[i] = false;
     }
 
-    DFSutil(s, visited);
+    DFSrec(s, visited);
 
     printArrayBool(visited, V);
 }
