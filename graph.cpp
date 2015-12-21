@@ -6,6 +6,8 @@
 
 using namespace std;
 
+enum DFSstate { UNVISITED, PROGRESS, VISITED };
+
 const int INFINITY = numeric_limits<int>::max();
 
 // HELPER FUNCTIONS
@@ -28,6 +30,7 @@ class Graph {
     vector<int> *adj;
     vector<int> *weights;
     void DFSrec(int s, bool visited[]);
+    bool isDAGrec(int s, DFSstate vertices[]);
     void topSortUtil(int s, bool visited[], stack<int> &finish);
     int findMinVertex(int dist[], bool known[]);
 public:
@@ -37,6 +40,7 @@ public:
     void addWeightedEdge(int u, int v, int weight);
     void DFS(int s);
     void BFS(int s);
+    bool isDAG();
     void topSort();
     void dijkstra(int src, int dist[], int parent[]);
     void findPath(int src, int dest, int dist[], int parent[]);
@@ -113,6 +117,46 @@ void Graph::BFS(int s) {
     }
 
     printArrayBool(visited, V);
+}
+
+bool Graph::isDAGrec(int s, DFSstate vertices[]) {
+    vertices[s] = PROGRESS;
+
+    bool result;
+    for (int i=0; i<adj[s].size(); i++) {
+        if (vertices[adj[s][i]] == UNVISITED) {
+            result = isDAGrec(adj[s][i], vertices);
+        } else if (vertices[adj[s][i]] == PROGRESS) {
+            result = false;
+        }
+
+        if (!result) {
+            return false;
+        }
+    }
+
+    vertices[s] = VISITED;
+
+    return true;
+}
+
+bool Graph::isDAG() {
+    DFSstate vertices[V];
+    for (int i=0; i<V; i++) {
+        vertices[i] = UNVISITED;
+    }
+
+    bool result;
+    for (int i=0; i<V; i++) {
+        if (vertices[i] == UNVISITED) {
+            result = isDAGrec(i, vertices);
+            if (!result) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 void Graph::topSortUtil(int s, bool visited[], stack<int> &finish) {
@@ -232,6 +276,18 @@ int main() {
     g2.findPath(0, 1, dist, parent);
     g2.findPath(0, 2, dist, parent);
     g2.findPath(0, 3, dist, parent);
+
+    Graph g3(3);
+    g3.addEdge(0, 1);
+    g3.addEdge(1, 2);
+    cout << boolalpha << g3.isDAG() << endl;
+
+    Graph g4(4);
+    g4.addEdge(0, 1);
+    g4.addEdge(1, 2);
+    g4.addEdge(1, 3);
+    g4.addEdge(3, 0);
+    cout << boolalpha << g4.isDAG() << endl;
 
     return 0;
 }
