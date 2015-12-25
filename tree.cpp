@@ -29,6 +29,7 @@ public:
     node *min();
     void deleteKey(int v);
     void print_in_order();
+    node *find_kth_smallest(int k);
     void print_pre_order();
 };
 
@@ -189,6 +190,36 @@ void Tree::print_in_order(node *tree) {
     }
 }
 
+node *Tree::find_kth_smallest(int k) {
+    if (root == nullptr || k < 1) {
+        return nullptr;
+    }
+
+    int counter = 0;
+    bool done = false;
+    node *current = root;
+    stack<node *> s;
+
+    while (!done) {
+        if (current != nullptr) {
+            s.push(current);
+            current = current->left;
+        } else if (!s.empty()) {
+            current = s.top();
+            s.pop();
+            counter++;
+            if (counter == k) {
+                return current;
+            }
+            current = current->right;
+        } else {
+            done = true;
+        }
+    }
+
+    return nullptr;
+}
+
 void Tree::print_in_order_rec(node *tree) {
     if (tree->left != nullptr) {
         print_in_order_rec(tree->left);
@@ -226,6 +257,9 @@ int main() {
     my_tree.insert(19);
     my_tree.print_in_order();
     my_tree.print_pre_order();
+
+    node *my_node = my_tree.find_kth_smallest(2);
+    cout << my_node->key << endl;
 
     my_tree.deleteKey(12);
     my_tree.print_in_order();
