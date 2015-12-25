@@ -18,8 +18,8 @@ class Tree {
     node *min(node *tree);
     node *deleteKey(node *tree, int v);
     void print_in_order_rec(node *tree);
-    void print_in_order_iter(node *tree);
-    void print_pre_order_iter(node *tree);
+    void print_in_order(node *tree);
+    void print_pre_order(node *tree);
 public:
     Tree();
     ~Tree();
@@ -72,7 +72,7 @@ void Tree::deleteKey(int v) {
 
 void Tree::print_in_order() {
     if (root != nullptr) {
-        print_in_order_iter(root);
+        print_in_order(root);
         cout << endl;
     } else {
         cout << "empty" << endl;
@@ -81,7 +81,7 @@ void Tree::print_in_order() {
 
 void Tree::print_pre_order() {
     if (root != nullptr) {
-        print_pre_order_iter(root);
+        print_pre_order(root);
         cout << endl;
     } else {
         cout << "empty" << endl;
@@ -169,7 +169,7 @@ node *Tree::deleteKey(node *tree, int v) {
     }
 }
 
-void Tree::print_in_order_iter(node *tree) {
+void Tree::print_in_order(node *tree) {
     node *current = tree;
     stack<node *> s;
     bool done = false;
@@ -199,7 +199,7 @@ void Tree::print_in_order_rec(node *tree) {
     }
 }
 
-void Tree::print_pre_order_iter(node *tree) {
+void Tree::print_pre_order(node *tree) {
     stack<node *> s;
     s.push(tree);
     node *current;
