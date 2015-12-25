@@ -18,8 +18,6 @@ class Tree {
     node *min(node *tree);
     node *deleteKey(node *tree, int v);
     void print_in_order_rec(node *tree);
-    void print_in_order(node *tree);
-    void print_pre_order(node *tree);
 public:
     Tree();
     ~Tree();
@@ -69,24 +67,6 @@ node *Tree::min() {
 
 void Tree::deleteKey(int v) {
     root = deleteKey(root, v);
-}
-
-void Tree::print_in_order() {
-    if (root != nullptr) {
-        print_in_order(root);
-        cout << endl;
-    } else {
-        cout << "empty" << endl;
-    }
-}
-
-void Tree::print_pre_order() {
-    if (root != nullptr) {
-        print_pre_order(root);
-        cout << endl;
-    } else {
-        cout << "empty" << endl;
-    }
 }
 
 void Tree::destroy(node *tree) {
@@ -170,8 +150,13 @@ node *Tree::deleteKey(node *tree, int v) {
     }
 }
 
-void Tree::print_in_order(node *tree) {
-    node *current = tree;
+void Tree::print_in_order() {
+    if (root == nullptr) {
+        cout << "empty" << endl;
+        return;
+    }
+
+    node *current = root;
     stack<node *> s;
     bool done = false;
 
@@ -188,6 +173,8 @@ void Tree::print_in_order(node *tree) {
             done = true;
         }
     }
+
+    cout << endl;
 }
 
 node *Tree::find_kth_smallest(int k) {
@@ -230,9 +217,14 @@ void Tree::print_in_order_rec(node *tree) {
     }
 }
 
-void Tree::print_pre_order(node *tree) {
+void Tree::print_pre_order() {
+    if (root == nullptr) {
+        cout << "empty" << endl;
+        return;
+    }
+
     stack<node *> s;
-    s.push(tree);
+    s.push(root);
     node *current;
 
     while (!s.empty()) {
@@ -247,6 +239,8 @@ void Tree::print_pre_order(node *tree) {
             s.push(current->left);
         }
     }
+
+    cout << endl;
 }
 
 int main() {
@@ -264,5 +258,7 @@ int main() {
     my_tree.deleteKey(12);
     my_tree.print_in_order();
     my_tree.deleteKey(5);
+    my_tree.print_in_order();
+    my_tree.deleteKey(19);
     my_tree.print_in_order();
 }
