@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
@@ -16,7 +17,8 @@ class Tree {
     node *max(node *tree);
     node *min(node *tree);
     node *deleteKey(node *tree, int v);
-    void print_in_order(node *tree);
+    void print_in_order_rec(node *tree);
+    void print_in_order_iter(node *tree);
 public:
     Tree();
     ~Tree();
@@ -68,7 +70,7 @@ void Tree::deleteKey(int v) {
 
 void Tree::print_in_order() {
     if (root != nullptr) {
-        print_in_order(root);
+        print_in_order_iter(root);
         cout << endl;
     } else {
         cout << "empty" << endl;
@@ -156,13 +158,33 @@ node *Tree::deleteKey(node *tree, int v) {
     }
 }
 
-void Tree::print_in_order(node *tree) {
+void Tree::print_in_order_iter(node *tree) {
+    node *current = tree;
+    stack<node *> s;
+    bool done = false;
+
+    while (!done) {
+        if (current != nullptr) {
+            s.push(current);
+            current = current->left;
+        } else if (!s.empty()) {
+            current = s.top();
+            s.pop();
+            cout << current->key << " ";
+            current = current->right;
+        } else {
+            done = true;
+        }
+    }
+}
+
+void Tree::print_in_order_rec(node *tree) {
     if (tree->left != nullptr) {
-        print_in_order(tree->left);
+        print_in_order_rec(tree->left);
     }
     cout << tree->key << " ";
     if (tree->right != nullptr) {
-        print_in_order(tree->right);
+        print_in_order_rec(tree->right);
     }
 }
 
