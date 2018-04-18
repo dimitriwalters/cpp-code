@@ -30,3 +30,30 @@ int main () {
 ```
 
 source from http://www.cplusplus.com/doc/tutorial/classes/
+
+## Linked List
+
+```cpp
+struct Node {
+    int data;
+    struct Node* next;
+}
+
+bool has_cycle(Node* head) {
+    struct Node *slow, *fast;
+    slow = head;
+    fast = head;
+    while (slow != NULL && fast != NULL) {
+        slow = slow->next;
+        fast = fast->next;
+        if (fast == NULL) {
+            return true;
+        }
+        fast = fast->next;
+        if (slow == fast) {
+            return true;
+        }
+    }
+    return false;
+}
+```
