@@ -57,3 +57,13 @@ bool has_cycle(Node* head) {
     return false;
 }
 ```
+
+## Libraries
+
+To use all C++ libraries and `std` namespace:
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+```
