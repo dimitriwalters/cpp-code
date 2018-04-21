@@ -1,6 +1,7 @@
-# cpp-code
-
-Random C++ code.
+## Table of Contents
+* [Classes](#classes)
+* [Linked List](#linked-list)
+* [Libraries](#libraries)
 
 ## Classes
 
