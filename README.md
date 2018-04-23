@@ -6,28 +6,32 @@
 ## Classes
 
 ```cpp
-// classes example
-#include <iostream>
-using namespace std;
+class MyQueue {
+    void set_dequeue_state() {
+        if (stack_dequeue.empty()) {
+            while (!stack_enqueue.empty()) {
+                stack_dequeue.push(stack_enqueue.top());
+                stack_enqueue.pop();
+            }
+        }
+    }
+  
+    public:
+        stack<int> stack_enqueue, stack_dequeue;   
+        void push(int x) {
+            stack_enqueue.push(x);
+        }
 
-class Rectangle {
-    int width, height;
-  public:
-    void set_values (int,int);
-    int area() {return width*height;}
+        void pop() {
+            set_dequeue_state();
+            stack_dequeue.pop();
+        }
+
+        int front() {
+            set_dequeue_state();
+            return stack_dequeue.top();
+        }
 };
-
-void Rectangle::set_values (int x, int y) {
-  width = x;
-  height = y;
-}
-
-int main () {
-  Rectangle rect;
-  rect.set_values (3,4);
-  cout << "area: " << rect.area();
-  return 0;
-}
 ```
 
 source from http://www.cplusplus.com/doc/tutorial/classes/
