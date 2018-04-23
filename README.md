@@ -34,8 +34,6 @@ class MyQueue {
 };
 ```
 
-source from http://www.cplusplus.com/doc/tutorial/classes/
-
 ## Linked List
 
 ```cpp
