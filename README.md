@@ -74,7 +74,7 @@ using namespace std;
 
 ## Division
 
-Helper function for dividing two integers and have it return an integer.
+Helper function for dividing two integers and have it return a float:
 
 ```cpp
 float float_div(int a, int b) {
