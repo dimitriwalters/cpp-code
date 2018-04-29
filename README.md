@@ -2,6 +2,7 @@
 * [Classes](#classes)
 * [Linked List](#linked-list)
 * [Libraries](#libraries)
+* [Division](#division)
 
 ## Classes
 
@@ -69,4 +70,14 @@ To use all C++ libraries and `std` namespace:
 #include <bits/stdc++.h>
 
 using namespace std;
+```
+
+## Division
+
+Helper function for dividing two integers and have it return an integer.
+
+```cpp
+float float_div(int a, int b) {
+    return a/(float)b;
+}
 ```
