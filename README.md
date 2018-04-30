@@ -3,6 +3,7 @@
 * [Linked List](#linked-list)
 * [Libraries](#libraries)
 * [Division](#division)
+* [Decimal](#decimal)
 
 ## Classes
 
@@ -80,4 +81,13 @@ Helper function for dividing two integers and have it return a float:
 float float_div(int a, int b) {
     return a/(float)b;
 }
+```
+
+## Decimal
+
+To set output to a specific decimal place:
+
+```cpp
+cout.precision(1);
+cout.setf(ios::fixed, ios::floatfield);
 ```
