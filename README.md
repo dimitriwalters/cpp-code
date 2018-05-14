@@ -8,6 +8,7 @@
 * [Sorting](#sorting)
   * [Bubble](#bubble)
   * [Selection](#selection)
+  * [Insertion](#insertion)
 
 ## Classes
 
