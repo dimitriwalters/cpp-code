@@ -5,6 +5,8 @@
 * [Division](#division)
 * [Decimal](#decimal)
 * [Starter](#starter)
+* [Vector](#vector)
+  * [Printing](#printing)
 * [Sorting](#sorting)
   * [Bubble](#bubble)
   * [Selection](#selection)
@@ -105,6 +107,21 @@ cout.setf(ios::fixed, ios::floatfield);
 using namespace std;
 
 int main() {
+    return 0;
+}
+```
+
+## Vector
+
+### Printing
+
+```cpp
+int main() {
+    vector<int> v = {3, 5, 2, 1, 4};
+    insertion_sort(v);
+    for (size_t i=0; i<v.size(); i++) {
+        cout << v[i] << endl;
+    }
     return 0;
 }
 ```
