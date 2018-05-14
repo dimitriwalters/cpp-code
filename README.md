@@ -143,3 +143,17 @@ void selection_sort(vector<int> &v) {
     }
 }
 ```
+
+## Insertion
+
+```cpp
+void insertion_sort(vector<int> &v) {
+    for (size_t i=0; i<v.size(); i++) {
+        for (size_t j=i; j>0 && v[j-1]>v[j]; j--) {
+            int tmp = v[j-1];
+            v[j-1] = v[j];
+            v[j] = tmp;
+        }
+    }
+}
+```
