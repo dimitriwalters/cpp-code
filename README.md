@@ -4,6 +4,7 @@
 * [Libraries](#libraries)
 * [Division](#division)
 * [Decimal](#decimal)
+* [Starter](#starter)
 
 ## Classes
 
@@ -90,4 +91,16 @@ To set output to a specific decimal place:
 ```cpp
 cout.precision(1);
 cout.setf(ios::fixed, ios::floatfield);
+```
+
+## Starter
+
+```cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    return 0;
+}
 ```
