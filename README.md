@@ -7,6 +7,7 @@
 * [Starter](#starter)
 * [Sorting](#sorting)
   * [Bubble](#bubble)
+  * [Selection](#selection)
 
 ## Classes
 
@@ -121,6 +122,24 @@ void bubble_sort(vector<int> &v) {
                 v[j+1] = tmp;
             }
         }
+    }
+}
+```
+
+## Selection
+
+```cpp
+void selection_sort(vector<int> &v) {
+    for (size_t i=0; i<v.size(); i++) {
+        int min_i = i;
+        for (size_t j=i; j<v.size(); j++) {
+            if (v[j] < v[min_i]) {
+                min_i = j;
+            }
+        }
+        int tmp = v[i];
+        v[i] = v[min_i];
+        v[min_i] = tmp;
     }
 }
 ```
